@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    .top-bar {
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+  </style>
+  <title>Eventopolis :: Home</title>
+</head>
+<body>
+<div class="container">
+  <div class="col-md-4 offset-8 text-right top-bar">
+    <span sec:authorize="isAuthenticated()">
+        <form class="form"
+              method="POST"
+              action="/logout">
+            <input type="hidden"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}"/>
+            <label for="submit">
+                Hello : &nbsp; <span th:text="${#authentication.name}"> </span>&nbsp;&nbsp;&nbsp;|
+            </label>
+            <button class="btn btn-link" type="submit">Logout</button>
+        </form>
+    </span>
+    <span sec:authorize="isAnonymous()" style="color:white;">
+                    <a href="/createAccount" class="btn btn-primary btn-sml" role="button" aria-pressed="true">Create Account</a> &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/login}" class="btn btn-primary btn-sml" role="button" aria-pressed="true">Log in</a>
+    </span>
+  </div>
+  <h1 class="text-center">Eventopolis : Home</h1>
+  <hr>
+  <div class="navbar">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="nav-item">
+        <a class="nav-link active" href="home">
+          Home
+        </a>
+      </li>
+      <li role="presentation" class="nav-item">
+        <a class="nav-link" href="content">
+          Content
+        </a>
+      </li>
+      <li role="presentation" class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="nav-link" href="admin">
+          Admin
+        </a>
+      </li>
+    </ul>
+  </div>
+  <h2>Home Page</h2>
+
+  <p>
+    The landing page of our application - anyone can get here, including anonymous users.
+  </p>
+
+  <div sec:authorize="isAuthenticated()">
+    <p>
+      This is only visible to users who are logged in.
+    </p>
+  </div>
+  <hr>
+</div>
+<br>
+<footer>
+  <strong>
+    <p class="text-center mt-2">&copy; Event Pages by Chris </p>
+  </strong>
+  <p class="text-center mt-2">When organizing events on Facebook is the only reason you still use Facebook.</p>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"
+        integrity="sha256-/ijcOLwFf26xEYAjW75FizKVo5tnTYiQddPZoLUHHZ8=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

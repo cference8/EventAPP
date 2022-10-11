@@ -1,0 +1,23 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: GOOGLE-ID
+            client-secret: GOOGLE-SECRET
+            scope:
+              - email
+              - profile
+          facebook:
+            client-id: FACEBOOK-ID
+            client-secret: FACEBOOK-SECRET
+            scope:
+              - email
+              - public_profile
+          github:
+            client-id: GITHUB-ID
+            client-secret: GITHUB-SECRET
+            scope:
+              - user:email
+              - read:user
