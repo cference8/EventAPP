@@ -10,13 +10,14 @@
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
   <style>
     .top-bar {
       padding-top: 20px;
       padding-bottom: 10px;
     }
   </style>
-  <title>Eventopolis :: Content</title>
+  <title>EVENTOPOLIS :: Events</title>
 </head>
 <body>
 <div class="container">
@@ -39,7 +40,7 @@
                     <a th:href="@{/login}" class="btn btn-primary btn-sml" role="button" aria-pressed="true">Log in</a>
     </span>
   </div>
-  <h1 class="text-center">Eventopolis : Content</h1>
+  <h1 class="text-center">EVENTOPOLIS ~ Events</h1>
   <hr>
   <div class="navbar">
     <ul class="nav nav-tabs">
@@ -49,8 +50,8 @@
         </a>
       </li>
       <li role="presentation" class="nav-item">
-        <a class="nav-link active" href="content">
-          Content
+        <a class="nav-link active" href="event">
+          Events
         </a>
       </li>
       <li role="presentation" class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -60,7 +61,7 @@
       </li>
     </ul>
   </div>
-  <h2>Content Page</h2>
+  <h2>Event Page</h2>
 
   <p>
     Only users with the USER role can see this page.

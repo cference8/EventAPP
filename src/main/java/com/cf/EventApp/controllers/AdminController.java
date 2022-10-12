@@ -44,7 +44,11 @@ public class AdminController {
         userRoles.add(roleService.getRoleByRole("ROLE_USER"));
         toAdd.setRoles(userRoles);
 
-        if(userService.existsByUsername(username)) userService.createUser(toAdd);
+        if(!userService.existsByUsername(username)) {
+            userService.createUser(toAdd);
+        } else {
+            throw new DaoException("User already exists");
+        }
 
         return "redirect:/admin";
     }
