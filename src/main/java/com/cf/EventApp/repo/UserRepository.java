@@ -1,4 +1,4 @@
-package com.cf.EventApp.daos;
+package com.cf.EventApp.repo;
 
 import com.cf.EventApp.models.Provider;
 import com.cf.EventApp.models.User;

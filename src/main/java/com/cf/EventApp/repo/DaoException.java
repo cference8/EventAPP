@@ -1,4 +1,4 @@
-package com.cf.EventApp.daos;
+package com.cf.EventApp.repo;
 
 public class DaoException extends Exception {
 

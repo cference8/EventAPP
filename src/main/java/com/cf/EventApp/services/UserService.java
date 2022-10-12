@@ -1,7 +1,7 @@
 package com.cf.EventApp.services;
 
-import com.cf.EventApp.daos.DaoException;
-import com.cf.EventApp.daos.UserRepository;
+import com.cf.EventApp.repo.DaoException;
+import com.cf.EventApp.repo.UserRepository;
 import com.cf.EventApp.models.Provider;
 import com.cf.EventApp.models.Role;
 import com.cf.EventApp.models.User;
