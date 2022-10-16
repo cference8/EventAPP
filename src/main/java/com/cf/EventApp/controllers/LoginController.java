@@ -1,6 +1,5 @@
 package com.cf.EventApp.controllers;
 
-import com.cf.EventApp.repo.DaoException;
 import com.cf.EventApp.models.Role;
 import com.cf.EventApp.models.User;
 import com.cf.EventApp.services.RoleService;
@@ -85,25 +84,39 @@ public class LoginController {
     }
 
     @PostMapping("/createAccount")
-    public String createAccount(@Valid User addedUser, BindingResult result, Model model) {
-
+    public String createAccount(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
 
-            model.addAttribute("user", addedUser);
+            model.addAttribute("user", user);
             model.addAttribute("errors", result.getAllErrors());
             return "createAccount";
         } else {
-
             try {
                 Set<Role> userRoles = new HashSet<>();
                 userRoles.add(roleService.getRoleByRole("ROLE_USER"));
-                addedUser.setRoles(userRoles);
+                user.setRoles(userRoles);
 
-                addedUser.setPassword(encoder.encode(addedUser.getPassword()));
-                userService.createUser(addedUser);
+
+
+                if (!userService.existsByUsername(user.getUsername())) {
+                    if(user.getPassword() != null && user.getPassword().length() >= 6){
+                        user.setPassword(encoder.encode(user.getPassword()));
+                        userService.createUser(user);
+                    } else {
+                        FieldError error = new FieldError("user", "password", "Password must contain at least 6 characters");
+                        result.addError(error);
+                        model.addAttribute("errors", result.getAllErrors());
+                        return "createAccount";
+                    }
+                } else {
+                    FieldError error = new FieldError("user", "username", "Username already exists. Please choose a unique username.");
+                    result.addError(error);
+                    model.addAttribute("errors", result.getAllErrors());
+                    return "createAccount";
+                }
 
                 return "redirect:/home";
-            } catch (DaoException ex) {
+            } catch (Exception ex) {
                 FieldError error = new FieldError("user", "username", "Username already exists. Please choose a unique username.");
                 result.addError(error);
                 model.addAttribute("errors", result.getAllErrors());

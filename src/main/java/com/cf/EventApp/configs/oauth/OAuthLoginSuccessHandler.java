@@ -23,6 +23,8 @@ public class OAuthLoginSuccessHandler extends SavedRequestAwareAuthenticationSuc
         String oauth2ClientName = oauth2User.getOauth2ClientName();
         String username = oauth2User.getEmail();
 
+        userService.processOAuthPostLogin(oauth2User.getEmail(), oauth2ClientName);
+
         userService.updateAuthenticationType(username, oauth2ClientName);
 
         super.onAuthenticationSuccess(request, response, authentication);

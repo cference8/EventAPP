@@ -22,6 +22,7 @@ public class Event {
     private LocalDateTime start_date;   // default should be today's date
     private LocalDateTime end_date;     // no default. null is acceptable.
     private String location;            // google api location information
+
     private String description;         // event description
     @ManyToOne
     @JoinColumn(name = "user_id")

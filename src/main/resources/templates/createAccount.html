@@ -3,134 +3,82 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <title>EVENTOPOLIS :: Create Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EVENTOPOLIS :: Registration</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="login-style/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="login-style/css/login.css">
 </head>
 <body>
-<div class="container">
-    <h1 class="text-center">EVENTOPOLIS ~ Create Account</h1>
-    <hr/>
-    <div class="navbar">
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="nav-item">
-                <a class="nav-link" href="home">
-                    Home
-                </a>
-            </li>
-            <li role="presentation" class="nav-item">
-                <a class="nav-link" href="event">
-                    Events
-                </a>
-            </li>
-            <li role="presentation" class="nav-item">
-                <a class="nav-link" href="admin">
-                    Admin
-                </a>
-            </li>
-        </ul>
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form" action="createAccount">
+                        <h2 class="form-title">Create account</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="firstName" id="firstName" placeholder="First Name"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="lastName" id="lastName" placeholder="Last Name"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="username" id="username" class="form-input" autocomplete="new-password" placeholder="Username"/>
+                            <div th:if="${#fields.hasErrors('user.username')}">
+                                <p th:each="error : ${#fields.errors('user.username')}" class="alert alert-danger" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <input type="email" name="email" id="email" class="form-input" placeholder="Email"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-input" autocomplete="new-password" placeholder="Password"/>
+                            <span toggle="#password" class="zmdi zmdi-eye-off field-icon toggle-password"></span>
+                            <div th:if="${#fields.hasErrors('user.password')}">
+                                <p th:each="error : ${#fields.errors('user.password')}" class="alert alert-danger" th:text="${error}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password" autocomplete="new-password"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Already Signed Up account ? <a href="login.html" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </div>
+    <div class="clear"></div>
+    <footer>
+        <strong>
+            <p class="text-center mt-2">&copy; EVENTOPOLIS designed by Chris </p>
+        </strong>
+        <p class="text-center mt-2">When organizing events on Facebook is the only reason you still use Facebook.</p>
+    </footer>
 
-
-    <div class="container">
-        <div sec:authorize="isAuthenticated()">
-            <form class="form-inline"
-                  method="POST"
-                  action="/logout">
-                <input type="hidden"
-                       th:name="${_csrf.parameterName}"
-                       th:value="${_csrf.token}"/>
-                <label for="submit">
-                    Hello : &nbsp; <span th:text="${#authentication.name}"> </span>&nbsp;&nbsp;&nbsp;|
-                </label>
-                <button class="btn btn-link" type="submit">Logout</button>
-            </form>
-        </div>
-    </div>
-
-    <div class ="container col-md-10 offset-2">
-
-
-        <form class="form-group" action="createAccount" method="POST">
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="userName">Username: </label>
-                <div class="col-8">
-                    <input type="text" name="username" id="username" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="password">Password: </label>
-                <div class="col-8">
-                    <input type="password" name="password" id="password" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="confirmPassword">Confirm Password: </label>
-                <div class="col-8">
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="firstName">First Name: </label>
-                <div class="col-8">
-                    <input type="text" name="firstName" id="firstName" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="lastName">Last Name: </label>
-                <div class="col-8">
-                    <input type="text" name="lastName" id="lastName" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="email">Email: </label>
-                <div class="col-8">
-                    <input type="text" name="email" id="email" class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group row col-7">
-                <label class="col-4 col-form-label" for="phoneNumber">Phone Number: </label>
-                <div class="col-8">
-                    <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"/>
-                </div>
-            </div>
-            <input type="hidden"
-                   th:name="${_csrf.parameterName}"
-                   th:value="${_csrf.token}"/>
-            <!--                    <input type="hidden"
-                                       name="id"
-                                       th:value="${currentUser.id}"/>-->
-            <button class="btn btn-primary" type="submit">Create Account</button>
-        </form>
-    </div>
-
-
-
-
-
-    <!--        <div sec:authorize="isAuthenticated()">
-                <p>
-                    This is only visible to users who are logged in.
-                </p>
-            </div>-->
-
-</div>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"
-        integrity="sha256-/ijcOLwFf26xEYAjW75FizKVo5tnTYiQddPZoLUHHZ8=" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
+    <!-- JS -->
+    <script src="login-style/vendor/jquery/jquery.min.js"></script>
+    <script src="login-style/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

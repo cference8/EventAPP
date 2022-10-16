@@ -115,9 +115,11 @@
 
     .alert {
     border-radius: 20px;
+    border: 1px;
+    border-color: red;
     width: 75%;
     padding: 20px;
-    background-color: #f44336;
+    background-color: #b8441a;
     color: white;
     text-shadow: 1px 1px 1px #000;
     }

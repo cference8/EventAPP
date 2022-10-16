@@ -10,4 +10,6 @@ public class EventController {
     public String displayEventPage() {
         return "event";
     }
+
+
 }

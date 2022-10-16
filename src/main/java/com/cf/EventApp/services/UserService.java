@@ -1,6 +1,5 @@
 package com.cf.EventApp.services;
 
-import com.cf.EventApp.repo.DaoException;
 import com.cf.EventApp.repo.UserRepository;
 import com.cf.EventApp.models.Provider;
 import com.cf.EventApp.models.Role;
@@ -25,12 +24,12 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository repo;
 
-    public void processOAuthPostLogin(String username) {
+    public void processOAuthPostLogin(String username, String provider) {
         Boolean existUser = repo.existsByUsername(username);
         if (!existUser) {
             User newUser = new User();
             newUser.setUsername(username);
-            newUser.setProvider(Provider.GOOGLE);
+            newUser.setProvider(Provider.valueOf(provider.toUpperCase()));
             newUser.setEnabled(true);
 
             repo.save(newUser);
@@ -48,31 +47,29 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User loaded = repo.getUserByUsername(username);
 
-        if( loaded == null) {
+        if( loaded != null && loaded.isEnabled()) {
+            Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+
+            for(Role role : loaded.getRoles()) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+            org.springframework.security.core.userdetails.User user =
+                    new org.springframework.security.core.userdetails.User(
+                            loaded.getUsername()
+                            , loaded.getPassword()
+                            , grantedAuthorities);
+            return user;
+        } else {
             throw new UsernameNotFoundException("could not find username: " + username);
         }
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
-        for(Role role : loaded.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-        if(loaded.getPassword() == null){
-            loaded.setPassword("");
-        }
-        org.springframework.security.core.userdetails.User toReturn =
-                new org.springframework.security.core.userdetails.User(
-                        loaded.getUsername()
-                        , loaded.getPassword()
-                        , grantedAuthorities);
-
-        return toReturn;
     }
 
     public List<User> getAllUsers() {
         return (List<User>) repo.findAll();
     }
 
-    public User createUser(User toAdd) throws DaoException{
+    public User createUser(User toAdd) {
         return repo.save(toAdd);
     }
 

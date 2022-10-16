@@ -1,6 +1,5 @@
 package com.cf.EventApp.controllers;
 
-import com.cf.EventApp.repo.DaoException;
 import com.cf.EventApp.models.Role;
 import com.cf.EventApp.models.User;
 import com.cf.EventApp.services.RoleService;
@@ -34,21 +33,24 @@ public class AdminController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(String username, String password) throws DaoException {
-        User toAdd = new User();
-        toAdd.setUsername(username);
-        toAdd.setPassword(password);
-        toAdd.setEnabled(true);
+    public String addUser(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(encoder.encode(password));
+        user.setEnabled(true);
 
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(roleService.getRoleByRole("ROLE_USER"));
-        toAdd.setRoles(userRoles);
+        user.setRoles(userRoles);
 
-        if(!userService.existsByUsername(username)) {
-            userService.createUser(toAdd);
-        } else {
-            throw new DaoException("User already exists");
+        try{
+            if(!userService.existsByUsername(username)) {
+                userService.createUser(user);
+            }
+        }catch (Exception e) {
+            e.getMessage();
         }
+
 
         return "redirect:/admin";
     }
@@ -80,7 +82,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/editUser")
-    public String editUserAction(String[] roleIdList, Boolean enabled, Integer id) throws DaoException {
+    public String editUserAction(String[] roleIdList, Boolean enabled, Integer id) {
         User user = userService.getUserById(id);
         if (enabled != null) {
             user.setEnabled(enabled);
@@ -100,7 +102,7 @@ public class AdminController {
     }
 
     @PostMapping("editPassword")
-    public String editPassword(Integer id, String password, String confirmPassword) throws DaoException {
+    public String editPassword(Integer id, String password, String confirmPassword) {
         User user = userService.getUserById(id);
 
         if (password.equals(confirmPassword)) {
