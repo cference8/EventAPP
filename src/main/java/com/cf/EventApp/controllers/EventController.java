@@ -11,5 +11,6 @@ public class EventController {
         return "event";
     }
 
-
+    @GetMapping("/createEvent")
+    public String displayCreateEventPage() { return "createEvent"; }
 }

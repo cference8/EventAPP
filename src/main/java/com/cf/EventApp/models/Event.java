@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "events")
@@ -19,8 +20,10 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;                    // event id auto_incremented
     private String title;               // name of the event
-    private LocalDateTime start_date;   // default should be today's date
-    private LocalDateTime end_date;     // no default. null is acceptable.
+    private LocalDate start_date;       // default should be today's date
+    private LocalTime start_time;       // default should be rounded up to nearest hour to current time.
+    private LocalDate end_date;         // null/empty is acceptable.
+    private LocalTime end_time;         // null/empty is acceptable.
     private String location;            // google api location information
 
     private String description;         // event description

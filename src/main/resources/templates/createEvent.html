@@ -12,15 +12,11 @@
           rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <style>
-    .top-bar {
-      padding-top: 20px;
-      padding-bottom: 10px;
-    }
-    </style>
+
     <title>EVENTOPOLIS :: Events</title>
 </head>
-<body>
+<body> <!-- Start of body -->
+
 <div class="container">
     <div class="col-md-4 offset-8 text-right top-bar">
     <span sec:authorize="isAuthenticated()">
@@ -74,11 +70,73 @@
         </p>
     </div>
 
-    <div>
-        <p>
-            <a href="event">Create Event</a>
-        </p>
-    </div>
+    <form method="POST" id="create-event-form" class="create-event-form" action="createEvent">
+        <!-- 2 column grid layout with text inputs for the Date and Time -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="date" id="start_date" class="form-control" />
+                    <label class="form-label" for="start_date">Start Date</label>
+                </div>
+            </div>
+            <div class="col">
+                <label class="visually-hidden">Start Time</label>
+                <select class="select col-6">
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                    <option value="6">Six</option>
+                    <option value="7">Seven</option>
+                    <option value="8">Eight</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="date" id="end_date" class="form-control" />
+                    <label class="form-label" for="end_date">End Date</label>
+                </div>
+            </div>
+            <div class="col">
+                <label class="visually-hidden">End Time&nbsp;&nbsp;</label>
+                <select class="select col-6" >
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                    <option value="6">Six</option>
+                    <option value="7">Seven</option>
+                    <option value="8">Eight</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="text" id="title" class="form-control" />
+            <label class="form-label" for="title">Event name</label>
+        </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <input type="address" id="location" class="form-control" />
+            <label class="form-label" for="location">Address</label>
+        </div>
+
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+            <textarea class="form-control" id="description" rows="4"></textarea>
+            <label class="form-label" for="description">Additional information</label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Create Event</button>
+    </form>
+
 
 </div>
 <div class="clear"></div>
@@ -98,5 +156,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-</body>
+</body> <!-- End of body -->
 </html>
