@@ -96,8 +96,6 @@ public class LoginController {
                 userRoles.add(roleService.getRoleByRole("ROLE_USER"));
                 user.setRoles(userRoles);
 
-
-
                 if (!userService.existsByUsername(user.getUsername())) {
                     if(user.getPassword() != null && user.getPassword().length() >= 6){
                         user.setPassword(encoder.encode(user.getPassword()));
@@ -114,7 +112,6 @@ public class LoginController {
                     model.addAttribute("errors", result.getAllErrors());
                     return "createAccount";
                 }
-
                 return "redirect:/home";
             } catch (Exception ex) {
                 FieldError error = new FieldError("user", "username", "Username already exists. Please choose a unique username.");

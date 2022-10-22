@@ -77,6 +77,8 @@ public class UserService implements UserDetailsService {
         return repo.existsByUsername(username);
     }
 
+    public User getUserByUsername(String username) { return repo.getUserByUsername(username); }
+
     public User getUserById(long id){
         return repo.findById(id).orElse(null);
     }

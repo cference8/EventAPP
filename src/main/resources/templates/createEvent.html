@@ -58,7 +58,7 @@
             </li>
         </ul>
     </div>
-    <h2>Event Page</h2>
+    <h2>Create Event Page</h2>
 
     <p>
         Only users with the USER role can see this page.
@@ -75,61 +75,48 @@
         <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">
-                    <input type="date" id="start_date" class="form-control" />
+                    <input type="date" name="start_date" id="start_date" class="form-control" />
                     <label class="form-label" for="start_date">Start Date</label>
                 </div>
             </div>
             <div class="col">
-                <label class="visually-hidden">Start Time</label>
-                <select class="select col-6">
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="4">Four</option>
-                    <option value="5">Five</option>
-                    <option value="6">Six</option>
-                    <option value="7">Seven</option>
-                    <option value="8">Eight</option>
-                </select>
+                <div class="form-outline">
+                    <input type="time" name="start_time" id="start_time" class="form-control" />
+                    <label class="form-label" for="start_time">Start Time</label>
+                </div>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col">
                 <div class="form-outline">
-                    <input type="date" id="end_date" class="form-control" />
+                    <input type="date" name="end_date" id="end_date" class="form-control" />
                     <label class="form-label" for="end_date">End Date</label>
                 </div>
             </div>
             <div class="col">
-                <label class="visually-hidden">End Time&nbsp;&nbsp;</label>
-                <select class="select col-6" >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="4">Four</option>
-                    <option value="5">Five</option>
-                    <option value="6">Six</option>
-                    <option value="7">Seven</option>
-                    <option value="8">Eight</option>
-                </select>
+                <div class="form-outline">
+                    <input type="time" name="end_time" id="end_time" class="form-control" />
+                    <label class="form-label" for="end_time">End Time</label>
+                </div>
             </div>
+
         </div>
 
         <!-- Text input -->
         <div class="form-outline mb-4">
-            <input type="text" id="title" class="form-control" />
+            <input type="text" name="title" id="title" class="form-control" />
             <label class="form-label" for="title">Event name</label>
         </div>
 
         <!-- Text input -->
         <div class="form-outline mb-4">
-            <input type="address" id="location" class="form-control" />
+            <input type="address" name="location" id="location" class="form-control" />
             <label class="form-label" for="location">Address</label>
         </div>
 
         <!-- Message input -->
         <div class="form-outline mb-4">
-            <textarea class="form-control" id="description" rows="4"></textarea>
+            <textarea class="form-control" name="description" id="description" rows="4"></textarea>
             <label class="form-label" for="description">Additional information</label>
         </div>
 
